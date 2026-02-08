@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MembershipRole {
+  PARENT
+  FAMILY
+  NANNY
+}
+
+enum EventType {
+  FEEDING
+  SLEEP
+  MEAL
+  SYMPTOM
+  ILLNESS
+  MEDICINE
+  MOOD
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  memberships  Membership[]
+  createdInvites Invite[]   @relation("InviteCreatedBy")
+  events       Event[]      @relation("EventCreatedBy")
+  pushTokens   PushToken[]
+}
+
+model Baby {
+  id        String       @id @default(cuid())
+  name      String
+  birthDate DateTime?
+  timezone  String       @default("America/Mexico_City")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  memberships Membership[]
+  invites     Invite[]
+  events      Event[]
+  goal        Goal?
+  alexaLinks  AlexaLink[]
+}
+
+model Membership {
+  id         String          @id @default(cuid())
+  babyId     String
+  userId     String
+  role       MembershipRole
+  scopes     String[]
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  baby       Baby            @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([babyId, userId])
+  @@index([userId])
+  @@index([babyId])
+}
+
+model Invite {
+  id          String          @id @default(cuid())
+  babyId      String
+  code        String          @unique
+  role        MembershipRole
+  scopes      String[]
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  usedAt      DateTime?
+  usedById    String?
+  createdById String
+  createdAt   DateTime        @default(now())
+
+  baby        Baby            @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  createdBy   User            @relation("InviteCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([babyId])
+  @@index([createdById])
+}
+
+model Event {
+  id          String     @id @default(cuid())
+  babyId      String
+  createdById String?
+  type        EventType
+  occurredAt  DateTime   @default(now())
+
+  // Common optional structured fields
+  startAt     DateTime?
+  endAt       DateTime?
+  amountOz    Float?
+  mood        String?
+  notes       String?
+  data        Json?
+
+  createdAt   DateTime   @default(now())
+
+  baby        Baby       @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  createdBy   User?      @relation("EventCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([babyId, occurredAt])
+  @@index([createdById])
+}
+
+model Goal {
+  id                 String   @id @default(cuid())
+  babyId             String   @unique
+  dailyOzGoal        Float    @default(0)
+  dailySleepHoursGoal Float   @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  baby               Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+}
+
+model PushToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  platform  String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model AlexaLink {
+  id           String   @id @default(cuid())
+  amazonUserId String   @unique
+  babyId       String
+  token        String   @unique
+  createdAt    DateTime @default(now())
+
+  baby         Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+
+  @@index([babyId])
+}

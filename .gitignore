@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+.env
+.env.*
+dist
+build
+.expo
+.expo-shared
+coverage
+.turbo
+.cache
+.vscode
+
+# Prisma
+apps/api/prisma/dev.db

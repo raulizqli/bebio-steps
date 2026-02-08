@@ -1,0 +1,16 @@
+{
+  "name": "bebio-steps",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run dev -w apps/api",
+    "lint": "npm run lint -ws",
+    "typecheck": "npm run typecheck -ws"
+  }
+}
