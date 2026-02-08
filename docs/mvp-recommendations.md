@@ -34,6 +34,14 @@ meeting the core requirements (iOS/Android and Alexa integration).
 ### Offline tolerance
 - Simple local queue + sync when online.
 
+## Development platforms (suggested)
+- Mobile: React Native + TypeScript (single codebase for iOS/Android).
+- Backend API: Node.js (Express or NestJS) + PostgreSQL.
+- Auth: Firebase Auth or Auth0.
+- Push notifications: Firebase Cloud Messaging + APNs.
+- Alexa: ASK SDK + AWS Lambda + account linking (OAuth).
+- CI/CD: GitHub Actions.
+
 ## 2) MVP User Stories (minimum)
 1. As a parent, I can log a feeding with amount and time.
 2. As a parent, I can log sleep start/end.
