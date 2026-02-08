@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Bebio",
+    "slug": "bebio",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "platforms": ["ios", "android"],
+    "sdkVersion": "UNVERSIONED",
+    "userInterfaceStyle": "automatic",
+    "plugins": [],
+    "extra": {
+      "apiBaseUrl": "${EXPO_PUBLIC_API_BASE_URL}"
+    }
+  }
+}
+

@@ -1,0 +1,263 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+
+  members             HouseholdMember[]
+  createdAccessGrants  AccessGrant[]       @relation("CreatedAccessGrants")
+  redeemedAccessGrants GrantRedemption[]
+  notificationTokens   NotificationToken[]
+
+  feedings   Feeding[]
+  sleeps     Sleep[]
+  meals      Meal[]
+  symptoms   Symptom[]
+  illnesses  Illness[]
+  medicines  Medicine[]
+  moods      Mood[]
+}
+
+model Household {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  members      HouseholdMember[]
+  children     Child[]
+  accessGrants AccessGrant[]
+}
+
+model HouseholdMember {
+  id             String     @id @default(cuid())
+  householdId    String
+  userId         String
+  role           String
+  permissionsJson String?   // JSON string for fine-grained permissions (caregiver/family)
+  expiresAt      DateTime?
+  revokedAt      DateTime?
+  createdAt      DateTime   @default(now())
+
+  household Household @relation(fields: [householdId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+
+  @@unique([householdId, userId])
+  @@index([userId])
+  @@index([householdId])
+}
+
+model Child {
+  id          String   @id @default(cuid())
+  householdId String
+  name        String
+  birthDate   DateTime?
+  createdAt   DateTime @default(now())
+
+  household Household @relation(fields: [householdId], references: [id])
+
+  goalSettings     GoalSettings?
+  feedings         Feeding[]
+  sleeps           Sleep[]
+  meals            Meal[]
+  symptoms         Symptom[]
+  illnesses        Illness[]
+  medicines        Medicine[]
+  moods            Mood[]
+  notificationLogs NotificationLog[]
+
+  @@index([householdId])
+}
+
+model GoalSettings {
+  id                    String   @id @default(cuid())
+  childId               String   @unique
+  timezone              String   @default("America/Mexico_City")
+  dailyOuncesGoal       Float?   // e.g. 24 oz/day
+  dailySleepMinutesGoal Int?     // e.g. 720 minutes/day
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  child Child @relation(fields: [childId], references: [id])
+}
+
+model AccessGrant {
+  id            String     @id @default(cuid())
+  householdId   String
+  createdByUserId String
+  code          String     @unique
+  role          String     @default("CAREGIVER")
+  permissionsJson String?
+  expiresAt     DateTime?
+  revokedAt     DateTime?
+  maxUses       Int        @default(1)
+  createdAt     DateTime   @default(now())
+  note          String?
+
+  household      Household        @relation(fields: [householdId], references: [id])
+  createdByUser  User             @relation("CreatedAccessGrants", fields: [createdByUserId], references: [id])
+  redemptions    GrantRedemption[]
+
+  @@index([householdId])
+  @@index([createdByUserId])
+}
+
+model GrantRedemption {
+  id            String   @id @default(cuid())
+  grantId       String
+  redeemedByUserId String
+  redeemedAt    DateTime @default(now())
+
+  grant         AccessGrant @relation(fields: [grantId], references: [id])
+  redeemedByUser User        @relation(fields: [redeemedByUserId], references: [id])
+
+  @@unique([grantId, redeemedByUserId])
+  @@index([redeemedByUserId])
+}
+
+model Feeding {
+  id        String     @id @default(cuid())
+  childId   String
+  userId    String
+  startedAt DateTime
+  ounces    Float?
+  type      String
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, startedAt])
+}
+
+model Sleep {
+  id        String   @id @default(cuid())
+  childId   String
+  userId    String
+  startedAt DateTime
+  endedAt   DateTime?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, startedAt])
+}
+
+model Meal {
+  id        String   @id @default(cuid())
+  childId   String
+  userId    String
+  at        DateTime
+  type      String
+  amount    String?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, at])
+}
+
+model Symptom {
+  id        String   @id @default(cuid())
+  childId   String
+  userId    String
+  at        DateTime
+  name      String
+  severity  Int?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, at])
+}
+
+model Illness {
+  id        String   @id @default(cuid())
+  childId   String
+  userId    String
+  startedAt DateTime
+  endedAt   DateTime?
+  diagnosis String?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, startedAt])
+}
+
+model Medicine {
+  id        String   @id @default(cuid())
+  childId   String
+  userId    String
+  at        DateTime
+  name      String
+  dose      Float?
+  unit      String?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, at])
+}
+
+model Mood {
+  id        String   @id @default(cuid())
+  childId   String
+  userId    String
+  at        DateTime
+  mood      String
+  notes     String?
+  createdAt DateTime @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([childId, at])
+}
+
+model NotificationToken {
+  id            String   @id @default(cuid())
+  userId        String
+  platform      String
+  expoPushToken String   @unique
+  createdAt     DateTime @default(now())
+  revokedAt     DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model NotificationLog {
+  id        String           @id @default(cuid())
+  childId   String
+  day       DateTime
+  type      String
+  sentAt    DateTime         @default(now())
+
+  child Child @relation(fields: [childId], references: [id])
+
+  @@unique([childId, day, type])
+  @@index([childId, day])
+}
+
