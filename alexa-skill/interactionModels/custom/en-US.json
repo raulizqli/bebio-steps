@@ -1,0 +1,281 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "baby steps",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "LogFeedingIntent",
+          "slots": [
+            {
+              "name": "feedingType",
+              "type": "FeedingType"
+            },
+            {
+              "name": "amount",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "unit",
+              "type": "FeedingUnit"
+            }
+          ],
+          "samples": [
+            "log a feeding",
+            "record a feeding",
+            "baby ate {amount} {unit}",
+            "fed baby {amount} {unit}",
+            "log {feedingType} feeding",
+            "record {feedingType} feeding of {amount} {unit}",
+            "baby had {amount} {unit} of {feedingType}"
+          ]
+        },
+        {
+          "name": "GetFeedingStatsIntent",
+          "slots": [
+            {
+              "name": "timeFrame",
+              "type": "TimeFrame"
+            }
+          ],
+          "samples": [
+            "how much did baby eat {timeFrame}",
+            "feeding stats for {timeFrame}",
+            "how many feedings {timeFrame}",
+            "what's the feeding summary",
+            "feeding report"
+          ]
+        },
+        {
+          "name": "StartSleepIntent",
+          "slots": [],
+          "samples": [
+            "start sleep tracking",
+            "baby is sleeping",
+            "log sleep start",
+            "baby went to sleep",
+            "start nap time"
+          ]
+        },
+        {
+          "name": "EndSleepIntent",
+          "slots": [],
+          "samples": [
+            "end sleep tracking",
+            "baby woke up",
+            "log sleep end",
+            "baby is awake",
+            "end nap time"
+          ]
+        },
+        {
+          "name": "GetSleepStatsIntent",
+          "slots": [
+            {
+              "name": "timeFrame",
+              "type": "TimeFrame"
+            }
+          ],
+          "samples": [
+            "how much did baby sleep {timeFrame}",
+            "sleep stats for {timeFrame}",
+            "sleep summary",
+            "how many hours of sleep {timeFrame}"
+          ]
+        },
+        {
+          "name": "LogMoodIntent",
+          "slots": [
+            {
+              "name": "mood",
+              "type": "BabyMood"
+            },
+            {
+              "name": "intensity",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "baby is {mood}",
+            "log mood as {mood}",
+            "baby seems {mood}",
+            "record mood {mood}",
+            "baby is {mood} level {intensity}"
+          ]
+        },
+        {
+          "name": "LogSymptomIntent",
+          "slots": [
+            {
+              "name": "symptom",
+              "type": "AMAZON.Symptom"
+            },
+            {
+              "name": "severity",
+              "type": "Severity"
+            }
+          ],
+          "samples": [
+            "baby has {symptom}",
+            "log {symptom}",
+            "record {severity} {symptom}",
+            "baby is experiencing {symptom}"
+          ]
+        },
+        {
+          "name": "LogMedicationIntent",
+          "slots": [
+            {
+              "name": "medication",
+              "type": "AMAZON.MedicationName"
+            }
+          ],
+          "samples": [
+            "gave baby {medication}",
+            "log medication {medication}",
+            "administered {medication}",
+            "baby took {medication}"
+          ]
+        },
+        {
+          "name": "GetDailySummaryIntent",
+          "slots": [],
+          "samples": [
+            "daily summary",
+            "how is baby doing",
+            "today's summary",
+            "what's the status",
+            "give me a summary"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "FeedingType",
+          "values": [
+            {
+              "name": {
+                "value": "breast"
+              }
+            },
+            {
+              "name": {
+                "value": "bottle"
+              }
+            },
+            {
+              "name": {
+                "value": "solid"
+              }
+            }
+          ]
+        },
+        {
+          "name": "FeedingUnit",
+          "values": [
+            {
+              "name": {
+                "value": "ounces"
+              }
+            },
+            {
+              "name": {
+                "value": "milliliters"
+              }
+            },
+            {
+              "name": {
+                "value": "servings"
+              }
+            }
+          ]
+        },
+        {
+          "name": "TimeFrame",
+          "values": [
+            {
+              "name": {
+                "value": "today"
+              }
+            },
+            {
+              "name": {
+                "value": "yesterday"
+              }
+            },
+            {
+              "name": {
+                "value": "this week"
+              }
+            }
+          ]
+        },
+        {
+          "name": "BabyMood",
+          "values": [
+            {
+              "name": {
+                "value": "happy"
+              }
+            },
+            {
+              "name": {
+                "value": "calm"
+              }
+            },
+            {
+              "name": {
+                "value": "fussy"
+              }
+            },
+            {
+              "name": {
+                "value": "crying"
+              }
+            },
+            {
+              "name": {
+                "value": "alert"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Severity",
+          "values": [
+            {
+              "name": {
+                "value": "mild"
+              }
+            },
+            {
+              "name": {
+                "value": "moderate"
+              }
+            },
+            {
+              "name": {
+                "value": "severe"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

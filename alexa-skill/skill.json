@@ -1,0 +1,80 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "Track your baby's daily activities with voice commands",
+          "examplePhrases": [
+            "Alexa, ask Baby Steps to log a feeding",
+            "Alexa, ask Baby Steps how much the baby ate today",
+            "Alexa, ask Baby Steps to start sleep tracking"
+          ],
+          "keywords": [
+            "baby",
+            "tracking",
+            "feeding",
+            "sleep",
+            "health",
+            "parenting"
+          ],
+          "name": "Bebio Steps",
+          "description": "Bebio Steps helps parents track their baby's daily activities including feeding, sleep, mood, and health. Log activities hands-free with voice commands and get instant updates on your baby's day.",
+          "smallIconUri": "file://assets/icon_108.png",
+          "largeIconUri": "file://assets/icon_512.png"
+        },
+        "es-ES": {
+          "summary": "Rastrea las actividades diarias de tu bebé con comandos de voz",
+          "examplePhrases": [
+            "Alexa, pide a Baby Steps que registre una toma",
+            "Alexa, pregunta a Baby Steps cuánto comió el bebé hoy",
+            "Alexa, pide a Baby Steps que inicie el seguimiento del sueño"
+          ],
+          "keywords": [
+            "bebé",
+            "seguimiento",
+            "alimentación",
+            "sueño",
+            "salud",
+            "crianza"
+          ],
+          "name": "Bebio Steps",
+          "description": "Bebio Steps ayuda a los padres a rastrear las actividades diarias de su bebé, incluida la alimentación, el sueño, el estado de ánimo y la salud. Registra actividades sin usar las manos con comandos de voz."
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Use test credentials: email: test@example.com, password: testpass123",
+      "category": "HEALTH_AND_FITNESS",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-east-1:YOUR_ACCOUNT_ID:function:bebio-steps-alexa"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [
+      {
+        "name": "alexa::profile:email:read"
+      },
+      {
+        "name": "alexa::profile:name:read"
+      }
+    ],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "locales": {
+        "en-US": {
+          "privacyPolicyUrl": "https://your-domain.com/privacy",
+          "termsOfUseUrl": "https://your-domain.com/terms"
+        }
+      },
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": true
+    }
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "pasos del bebé",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "LogFeedingIntent",
+          "slots": [
+            {
+              "name": "feedingType",
+              "type": "FeedingType"
+            },
+            {
+              "name": "amount",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "unit",
+              "type": "FeedingUnit"
+            }
+          ],
+          "samples": [
+            "registrar una toma",
+            "anotar una toma",
+            "el bebé comió {amount} {unit}",
+            "di de comer al bebé {amount} {unit}",
+            "registrar toma de {feedingType}",
+            "anotar toma de {feedingType} de {amount} {unit}"
+          ]
+        },
+        {
+          "name": "GetFeedingStatsIntent",
+          "slots": [
+            {
+              "name": "timeFrame",
+              "type": "TimeFrame"
+            }
+          ],
+          "samples": [
+            "cuánto comió el bebé {timeFrame}",
+            "estadísticas de comidas de {timeFrame}",
+            "cuántas tomas {timeFrame}",
+            "resumen de comidas"
+          ]
+        },
+        {
+          "name": "StartSleepIntent",
+          "slots": [],
+          "samples": [
+            "comenzar seguimiento de sueño",
+            "el bebé está durmiendo",
+            "registrar inicio de sueño",
+            "el bebé se durmió",
+            "comenzar siesta"
+          ]
+        },
+        {
+          "name": "EndSleepIntent",
+          "slots": [],
+          "samples": [
+            "terminar seguimiento de sueño",
+            "el bebé se despertó",
+            "registrar fin de sueño",
+            "el bebé está despierto",
+            "terminar siesta"
+          ]
+        },
+        {
+          "name": "GetSleepStatsIntent",
+          "slots": [
+            {
+              "name": "timeFrame",
+              "type": "TimeFrame"
+            }
+          ],
+          "samples": [
+            "cuánto durmió el bebé {timeFrame}",
+            "estadísticas de sueño de {timeFrame}",
+            "resumen de sueño",
+            "cuántas horas durmió {timeFrame}"
+          ]
+        },
+        {
+          "name": "LogMoodIntent",
+          "slots": [
+            {
+              "name": "mood",
+              "type": "BabyMood"
+            }
+          ],
+          "samples": [
+            "el bebé está {mood}",
+            "registrar estado de ánimo {mood}",
+            "el bebé parece {mood}",
+            "anotar estado {mood}"
+          ]
+        },
+        {
+          "name": "GetDailySummaryIntent",
+          "slots": [],
+          "samples": [
+            "resumen diario",
+            "cómo está el bebé",
+            "resumen de hoy",
+            "cuál es el estado",
+            "dame un resumen"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "FeedingType",
+          "values": [
+            {
+              "name": {
+                "value": "pecho"
+              }
+            },
+            {
+              "name": {
+                "value": "biberón"
+              }
+            },
+            {
+              "name": {
+                "value": "sólido"
+              }
+            }
+          ]
+        },
+        {
+          "name": "FeedingUnit",
+          "values": [
+            {
+              "name": {
+                "value": "onzas"
+              }
+            },
+            {
+              "name": {
+                "value": "mililitros"
+              }
+            }
+          ]
+        },
+        {
+          "name": "TimeFrame",
+          "values": [
+            {
+              "name": {
+                "value": "hoy"
+              }
+            },
+            {
+              "name": {
+                "value": "ayer"
+              }
+            },
+            {
+              "name": {
+                "value": "esta semana"
+              }
+            }
+          ]
+        },
+        {
+          "name": "BabyMood",
+          "values": [
+            {
+              "name": {
+                "value": "feliz"
+              }
+            },
+            {
+              "name": {
+                "value": "tranquilo"
+              }
+            },
+            {
+              "name": {
+                "value": "inquieto"
+              }
+            },
+            {
+              "name": {
+                "value": "llorando"
+              }
+            },
+            {
+              "name": {
+                "value": "alerta"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
