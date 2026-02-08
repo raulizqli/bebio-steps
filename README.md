@@ -14,3 +14,5 @@ Aplicacion para registrar tomas, horas de sueno, comidas (cuando aplique), sinto
 
 ## Documentation
 - [Requisitos funcionales (ES)](docs/requirements-es.md)
+- [MVP recommendations](docs/mvp-recommendations.md)
+- [Requirements checklist](docs/requirements-checklist.md)
