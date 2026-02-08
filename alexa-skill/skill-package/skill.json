@@ -1,0 +1,57 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "es-MX": {
+          "summary": "Seguimiento completo de tu bebé con BebIO Steps",
+          "examplePhrases": [
+            "Alexa, abre BebIO Steps",
+            "Alexa, pregunta a BebIO cuánto comió el bebé",
+            "Alexa, dile a BebIO que registre una toma"
+          ],
+          "keywords": [
+            "bebé",
+            "seguimiento",
+            "alimentación",
+            "sueño",
+            "baby tracker"
+          ],
+          "name": "BebIO Steps",
+          "description": "BebIO Steps te permite registrar y consultar la alimentación, sueño, estado de ánimo, síntomas y medicinas de tu bebé usando solo tu voz. Pregunta cuántas onzas tomó hoy, cuántas horas durmió, o registra una nueva toma sin mover un dedo."
+        }
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "Vincula tu cuenta BebIO Steps para usar el skill.",
+      "category": "HEALTH_AND_FITNESS",
+      "distributionCountries": [
+        "MX",
+        "US",
+        "ES"
+      ]
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda",
+          "uri": "ask-bebio-steps-default"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "locales": {
+        "es-MX": {
+          "privacyPolicyUrl": "",
+          "termsOfUseUrl": ""
+        }
+      },
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": true
+    }
+  }
+}

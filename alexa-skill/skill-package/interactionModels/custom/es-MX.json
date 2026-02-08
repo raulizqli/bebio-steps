@@ -1,0 +1,213 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "bebio steps",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "LogFeedingIntent",
+          "slots": [
+            {
+              "name": "amount",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "feedingType",
+              "type": "FeedingType"
+            }
+          ],
+          "samples": [
+            "registra una toma de {amount} onzas",
+            "registra {amount} onzas de {feedingType}",
+            "el bebé tomó {amount} onzas",
+            "tomó {amount} onzas",
+            "registra toma de {feedingType}",
+            "registra una toma",
+            "registrar alimentación de {amount} onzas",
+            "agrega {amount} onzas de leche",
+            "el bebé comió {amount} onzas"
+          ]
+        },
+        {
+          "name": "LogSleepIntent",
+          "slots": [
+            {
+              "name": "hours",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "quality",
+              "type": "SleepQuality"
+            }
+          ],
+          "samples": [
+            "registra {hours} horas de sueño",
+            "el bebé durmió {hours} horas",
+            "durmió {hours} horas {quality}",
+            "registra sueño de {hours} horas",
+            "el bebé se durmió",
+            "registra siesta de {hours} horas"
+          ]
+        },
+        {
+          "name": "LogMoodIntent",
+          "slots": [
+            {
+              "name": "mood",
+              "type": "MoodType"
+            }
+          ],
+          "samples": [
+            "el bebé está {mood}",
+            "registra que está {mood}",
+            "el estado de ánimo es {mood}",
+            "registra ánimo {mood}",
+            "se siente {mood}"
+          ]
+        },
+        {
+          "name": "LogSymptomIntent",
+          "slots": [
+            {
+              "name": "symptom",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "temperature",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "registra síntoma de {symptom}",
+            "el bebé tiene {symptom}",
+            "tiene fiebre de {temperature} grados",
+            "registra temperatura de {temperature}",
+            "el bebé tiene {symptom} con {temperature} de temperatura"
+          ]
+        },
+        {
+          "name": "LogMedicineIntent",
+          "slots": [
+            {
+              "name": "medicineName",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "dosage",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "registra medicina {medicineName}",
+            "le di {medicineName}",
+            "registra {dosage} mililitros de {medicineName}",
+            "le administré {medicineName}",
+            "le di {dosage} de {medicineName}"
+          ]
+        },
+        {
+          "name": "GetSummaryIntent",
+          "slots": [],
+          "samples": [
+            "cómo va el día",
+            "resumen del día",
+            "dame el resumen",
+            "cómo está el bebé hoy",
+            "resumen de hoy",
+            "cuéntame cómo va todo"
+          ]
+        },
+        {
+          "name": "GetFeedingTotalIntent",
+          "slots": [],
+          "samples": [
+            "cuánto ha comido",
+            "cuántas onzas ha tomado",
+            "cuánto ha tomado hoy",
+            "total de onzas hoy",
+            "cuántas tomas lleva hoy",
+            "cuánto comió el bebé"
+          ]
+        },
+        {
+          "name": "GetSleepTotalIntent",
+          "slots": [],
+          "samples": [
+            "cuánto ha dormido",
+            "cuántas horas durmió",
+            "horas de sueño hoy",
+            "cuánto durmió el bebé",
+            "total de sueño hoy"
+          ]
+        },
+        {
+          "name": "GetLastFeedingIntent",
+          "slots": [],
+          "samples": [
+            "cuándo fue la última toma",
+            "última vez que comió",
+            "cuándo comió por última vez",
+            "hace cuánto comió"
+          ]
+        },
+        {
+          "name": "GetGoalProgressIntent",
+          "slots": [],
+          "samples": [
+            "cómo van las metas",
+            "progreso de las metas",
+            "se cumplieron las metas",
+            "metas del día"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "FeedingType",
+          "values": [
+            { "name": { "value": "biberón", "synonyms": ["biberon", "botella", "bottle"] } },
+            { "name": { "value": "pecho", "synonyms": ["lactancia", "breast", "seno"] } },
+            { "name": { "value": "fórmula", "synonyms": ["formula"] } },
+            { "name": { "value": "mixto", "synonyms": ["combinado"] } }
+          ]
+        },
+        {
+          "name": "SleepQuality",
+          "values": [
+            { "name": { "value": "bien", "synonyms": ["bueno", "tranquilo", "profundo"] } },
+            { "name": { "value": "regular", "synonyms": ["normal", "ok"] } },
+            { "name": { "value": "mal", "synonyms": ["malo", "inquieto", "despertó mucho"] } }
+          ]
+        },
+        {
+          "name": "MoodType",
+          "values": [
+            { "name": { "value": "feliz", "synonyms": ["contento", "alegre", "riendo"] } },
+            { "name": { "value": "tranquilo", "synonyms": ["calmado", "en paz", "relajado"] } },
+            { "name": { "value": "inquieto", "synonyms": ["intranquilo", "nervioso"] } },
+            { "name": { "value": "llorando", "synonyms": ["llora", "llorón"] } },
+            { "name": { "value": "somnoliento", "synonyms": ["con sueño", "cansado"] } },
+            { "name": { "value": "juguetón", "synonyms": ["activo", "jugando"] } },
+            { "name": { "value": "irritable", "synonyms": ["molesto", "enojado"] } },
+            { "name": { "value": "enfermo", "synonyms": ["malito", "enfermito"] } }
+          ]
+        }
+      ]
+    }
+  }
+}
