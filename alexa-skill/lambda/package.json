@@ -1,0 +1,10 @@
+{
+  "name": "bebio-steps-alexa-lambda",
+  "version": "1.0.0",
+  "description": "BebIO Steps Alexa Skill Lambda Handler",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "package": "zip -r ../skill-package/lambda.zip ."
+  }
+}

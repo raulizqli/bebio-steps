@@ -1,0 +1,57 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "es-MX": {
+          "summary": "Seguimiento inteligente para tu bebé - registra tomas, sueño, comidas y más",
+          "examplePhrases": [
+            "Alexa, abre bebio steps",
+            "Alexa, pregunta a bebio steps cuánto ha comido mi bebé",
+            "Alexa, dile a bebio steps que registre una toma de 4 onzas"
+          ],
+          "keywords": [
+            "bebé",
+            "baby",
+            "tracking",
+            "seguimiento",
+            "tomas",
+            "sueño",
+            "alimentación"
+          ],
+          "name": "BebIO Steps",
+          "description": "BebIO Steps te permite hacer seguimiento de las actividades diarias de tu bebé usando la voz. Registra tomas, horas de sueño, comidas y obtén resúmenes diarios. Vincula tu cuenta de la app BebIO Steps para comenzar."
+        }
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "1. Link your BebIO Steps account in the app first. 2. Say 'Alexa, abre bebio steps' to start.",
+      "category": "HEALTH_AND_FITNESS",
+      "distributionCountries": [
+        "MX",
+        "US",
+        "ES"
+      ]
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "https://your-api-domain.com/api/v1/alexa/webhook"
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "locales": {
+        "es-MX": {
+          "privacyPolicyUrl": "https://your-domain.com/privacy",
+          "termsOfUseUrl": "https://your-domain.com/terms"
+        }
+      },
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": true
+    }
+  }
+}

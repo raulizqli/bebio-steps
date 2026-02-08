@@ -1,0 +1,111 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "bebio steps",
+      "intents": [
+        {
+          "name": "GetFeedingSummaryIntent",
+          "slots": [],
+          "samples": [
+            "cuánto ha comido mi bebé hoy",
+            "cuánto ha comido hoy",
+            "resumen de tomas",
+            "cuántas tomas ha tenido",
+            "cuántas onzas ha tomado",
+            "dame el resumen de alimentación",
+            "cuánto tomó hoy",
+            "cómo van las tomas"
+          ]
+        },
+        {
+          "name": "GetSleepSummaryIntent",
+          "slots": [],
+          "samples": [
+            "cuánto ha dormido mi bebé hoy",
+            "cuánto ha dormido hoy",
+            "resumen de sueño",
+            "cuántas horas durmió",
+            "cuántas siestas ha tenido",
+            "cómo durmió hoy",
+            "dame el resumen de sueño"
+          ]
+        },
+        {
+          "name": "LogFeedingIntent",
+          "slots": [
+            {
+              "name": "amount",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "de {amount} onzas",
+                "{amount} onzas",
+                "de {amount}"
+              ]
+            }
+          ],
+          "samples": [
+            "registrar una toma de {amount} onzas",
+            "registra una toma de {amount} onzas",
+            "mi bebé tomó {amount} onzas",
+            "tomó {amount} onzas",
+            "registrar toma de {amount}",
+            "registrar una toma",
+            "registra una toma",
+            "mi bebé acaba de comer"
+          ]
+        },
+        {
+          "name": "LogSleepIntent",
+          "slots": [
+            {
+              "name": "duration",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "de {duration} minutos",
+                "{duration} minutos",
+                "por {duration} minutos"
+              ]
+            }
+          ],
+          "samples": [
+            "registrar una siesta de {duration} minutos",
+            "mi bebé durmió {duration} minutos",
+            "siesta de {duration} minutos",
+            "registrar que durmió {duration} minutos",
+            "registrar una siesta",
+            "registra una siesta",
+            "mi bebé acaba de dormir"
+          ]
+        },
+        {
+          "name": "GetBabyStatusIntent",
+          "slots": [],
+          "samples": [
+            "cómo está mi bebé",
+            "cómo va el día de mi bebé",
+            "dame el resumen del día",
+            "resumen completo",
+            "cómo va todo",
+            "estado de mi bebé"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ]
+    }
+  }
+}
