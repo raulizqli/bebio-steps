@@ -1,0 +1,175 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "rastreador de bebés",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "LogFeedingIntent",
+          "slots": [
+            {
+              "name": "amount",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "babyName",
+              "type": "AMAZON.FirstName"
+            },
+            {
+              "name": "type",
+              "type": "FeedingType"
+            }
+          ],
+          "samples": [
+            "registra {amount} onzas para {babyName}",
+            "registra {amount} onzas de {type} para {babyName}",
+            "{babyName} tomó {amount} onzas",
+            "mi bebé tomó {amount} onzas",
+            "registra alimentación de {amount} onzas"
+          ]
+        },
+        {
+          "name": "LogSleepIntent",
+          "slots": [
+            {
+              "name": "duration",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "babyName",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "samples": [
+            "registra {duration} horas de sueño para {babyName}",
+            "{babyName} durmió {duration} horas",
+            "mi bebé durmió {duration} horas",
+            "registra siesta de {duration} horas"
+          ]
+        },
+        {
+          "name": "GetFeedingSummaryIntent",
+          "slots": [
+            {
+              "name": "babyName",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "samples": [
+            "cuánto ha comido {babyName} hoy",
+            "resumen de alimentación de {babyName}",
+            "cuántas onzas ha tomado mi bebé",
+            "resumen de alimentación"
+          ]
+        },
+        {
+          "name": "GetSleepSummaryIntent",
+          "slots": [
+            {
+              "name": "babyName",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "samples": [
+            "cuánto ha dormido {babyName} hoy",
+            "resumen de sueño de {babyName}",
+            "cuántas horas ha dormido mi bebé",
+            "resumen de sueño"
+          ]
+        },
+        {
+          "name": "LogMoodIntent",
+          "slots": [
+            {
+              "name": "mood",
+              "type": "MoodType"
+            },
+            {
+              "name": "babyName",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "samples": [
+            "{babyName} está {mood}",
+            "mi bebé está {mood}",
+            "registra que {babyName} está {mood}",
+            "el bebé está {mood}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "FeedingType",
+          "values": [
+            {
+              "name": {
+                "value": "biberón"
+              }
+            },
+            {
+              "name": {
+                "value": "pecho"
+              }
+            },
+            {
+              "name": {
+                "value": "sólidos"
+              }
+            }
+          ]
+        },
+        {
+          "name": "MoodType",
+          "values": [
+            {
+              "name": {
+                "value": "feliz"
+              }
+            },
+            {
+              "name": {
+                "value": "tranquilo"
+              }
+            },
+            {
+              "name": {
+                "value": "llorando"
+              }
+            },
+            {
+              "name": {
+                "value": "molesto"
+              }
+            },
+            {
+              "name": {
+                "value": "irritable"
+              }
+            },
+            {
+              "name": {
+                "value": "juguetón"
+              }
+            },
+            {
+              "name": {
+                "value": "somnoliento"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

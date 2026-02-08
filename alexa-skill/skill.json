@@ -1,0 +1,70 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "es-ES": {
+          "summary": "Registra y consulta información de tu bebé",
+          "examplePhrases": [
+            "Alexa, abre rastreador de bebés",
+            "Alexa, pregunta a rastreador de bebés cuánto ha comido mi bebé hoy",
+            "Alexa, dile a rastreador de bebés que registre 4 onzas"
+          ],
+          "keywords": [
+            "bebé",
+            "tracker",
+            "alimentación",
+            "sueño",
+            "salud"
+          ],
+          "name": "Rastreador de Bebés",
+          "description": "Rastreador de Bebés te ayuda a monitorear la alimentación, el sueño y el estado de ánimo de tu bebé. Registra fácilmente las tomas, las horas de sueño y consulta resúmenes diarios usando solo tu voz.",
+          "smallIconUri": "https://yourdomain.com/icons/small-icon.png",
+          "largeIconUri": "https://yourdomain.com/icons/large-icon.png"
+        },
+        "es-MX": {
+          "summary": "Registra y consulta información de tu bebé",
+          "examplePhrases": [
+            "Alexa, abre rastreador de bebés",
+            "Alexa, pregunta a rastreador de bebés cuánto ha comido mi bebé hoy",
+            "Alexa, dile a rastreador de bebés que registre 4 onzas"
+          ],
+          "keywords": [
+            "bebé",
+            "tracker",
+            "alimentación",
+            "sueño",
+            "salud"
+          ],
+          "name": "Rastreador de Bebés",
+          "description": "Rastreador de Bebés te ayuda a monitorear la alimentación, el sueño y el estado de ánimo de tu bebé. Registra fácilmente las tomas, las horas de sueño y consulta resúmenes diarios usando solo tu voz."
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Primero vincula tu cuenta usando la aplicación móvil Baby Tracker.",
+      "category": "HEALTH_AND_FITNESS",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-east-1:YOUR_ACCOUNT_ID:function:babyTrackerSkill"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": true,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "es-ES": {
+          "privacyPolicyUrl": "https://yourdomain.com/privacy",
+          "termsOfUseUrl": "https://yourdomain.com/terms"
+        }
+      }
+    }
+  }
+}

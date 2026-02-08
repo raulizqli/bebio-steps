@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: baby_tracker_db
+    environment:
+      POSTGRES_DB: baby_tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - baby_tracker_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: baby_tracker_api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/baby_tracker
+      JWT_SECRET: your-super-secret-jwt-key
+      PORT: 3000
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - baby_tracker_network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm start
+
+volumes:
+  postgres_data:
+
+networks:
+  baby_tracker_network:
+    driver: bridge

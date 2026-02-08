@@ -1,0 +1,16 @@
+{
+  "accountLinkingRequest": {
+    "type": "AUTH_CODE",
+    "authorizationUrl": "https://your-api-domain.com/api/alexa/auth/link",
+    "accessTokenUrl": "https://your-api-domain.com/api/alexa/auth/link",
+    "clientId": "your-client-id",
+    "clientSecret": "your-client-secret",
+    "accessTokenScheme": "HTTP_BASIC",
+    "scopes": [
+      "baby:read",
+      "baby:write"
+    ],
+    "domains": [],
+    "defaultTokenExpirationInSeconds": 31536000
+  }
+}
