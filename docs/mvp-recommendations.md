@@ -36,11 +36,23 @@ meeting the core requirements (iOS/Android and Alexa integration).
 
 ## Development platforms (suggested)
 - Mobile: React Native + TypeScript (single codebase for iOS/Android).
+  - Benefits: faster delivery with shared code; large ecosystem.
+  - Disadvantages: native module work for edge cases; perf tuning for heavy UI.
 - Backend API: Node.js (Express or NestJS) + PostgreSQL.
+  - Benefits: rapid iteration; strong community; good JSON support.
+  - Disadvantages: single-threaded runtime; needs care for CPU-heavy tasks.
 - Auth: Firebase Auth or Auth0.
+  - Benefits: quick setup; secure flows; social logins if needed.
+  - Disadvantages: vendor lock-in; pricing can grow with scale.
 - Push notifications: Firebase Cloud Messaging + APNs.
+  - Benefits: industry standard; reliable delivery.
+  - Disadvantages: platform setup complexity; token management.
 - Alexa: ASK SDK + AWS Lambda + account linking (OAuth).
+  - Benefits: fast skill development; scalable by default.
+  - Disadvantages: extra certification steps; voice UX limits.
 - CI/CD: GitHub Actions.
+  - Benefits: native to repo; flexible workflows.
+  - Disadvantages: parallel builds can increase cost; mobile signing setup.
 
 ## 2) MVP User Stories (minimum)
 1. As a parent, I can log a feeding with amount and time.
