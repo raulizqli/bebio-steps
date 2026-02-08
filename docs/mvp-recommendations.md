@@ -54,6 +54,17 @@ meeting the core requirements (iOS/Android and Alexa integration).
   - Benefits: native to repo; flexible workflows.
   - Disadvantages: parallel builds can increase cost; mobile signing setup.
 
+### Firebase-first option (MVP-friendly)
+Firebase can cover most backend needs, but not everything.
+- Use Firebase for: Auth, Firestore (DB), Cloud Functions (API), Storage,
+  Analytics, Crashlytics, and Push (FCM/APNs).
+  - Benefits: very fast MVP delivery; built-in offline and realtime sync.
+  - Disadvantages: vendor lock-in; pricing can grow with scale.
+- Still required outside Firebase:
+  - Mobile releases: App Store / Google Play builds, signing, and publishing.
+  - Alexa hosting: Alexa skills are hosted on AWS (Lambda or Alexa-hosted).
+  - Recommendation: Alexa calls Firebase Functions/Firestore via HTTPS.
+
 ## 2) MVP User Stories (minimum)
 1. As a parent, I can log a feeding with amount and time.
 2. As a parent, I can log sleep start/end.
