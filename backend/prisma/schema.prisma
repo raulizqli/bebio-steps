@@ -1,0 +1,283 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String
+  firstName     String
+  lastName      String
+  role          UserRole @default(PARENT)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relationships
+  babies        Baby[]
+  sharedAccess  SharedAccess[]
+  createdShares SharedAccess[] @relation("ShareCreator")
+  feedingLogs   FeedingLog[]
+  sleepLogs     SleepLog[]
+  mealLogs      MealLog[]
+  illnessLogs   IllnessLog[]
+  medicationLogs MedicationLog[]
+  moodLogs      MoodLog[]
+  notifications Notification[]
+}
+
+enum UserRole {
+  PARENT
+  NANNY
+  FAMILY
+}
+
+model Baby {
+  id           String   @id @default(uuid())
+  firstName    String
+  lastName     String
+  dateOfBirth  DateTime
+  gender       String?
+  photoUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Goals
+  dailyFeedingGoalOz Float?  @default(24.0)
+  dailySleepGoalHours Float? @default(14.0)
+  
+  // Relationships
+  parentId     String
+  parent       User     @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  
+  sharedAccess SharedAccess[]
+  feedingLogs  FeedingLog[]
+  sleepLogs    SleepLog[]
+  mealLogs     MealLog[]
+  illnessLogs  IllnessLog[]
+  medicationLogs MedicationLog[]
+  moodLogs     MoodLog[]
+  notifications Notification[]
+}
+
+model SharedAccess {
+  id           String   @id @default(uuid())
+  shareCode    String   @unique
+  babyId       String
+  baby         Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  creatorId    String
+  creator      User     @relation("ShareCreator", fields: [creatorId], references: [id])
+  
+  permissions  Permission[]
+  
+  isActive     Boolean  @default(true)
+  expiresAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@index([shareCode])
+  @@index([babyId])
+}
+
+enum Permission {
+  VIEW_FEEDING
+  ADD_FEEDING
+  VIEW_SLEEP
+  ADD_SLEEP
+  VIEW_MEALS
+  ADD_MEALS
+  VIEW_ILLNESS
+  ADD_ILLNESS
+  VIEW_MEDICATION
+  ADD_MEDICATION
+  VIEW_MOOD
+  ADD_MOOD
+  MANAGE_SHARES
+}
+
+model FeedingLog {
+  id          String   @id @default(uuid())
+  babyId      String
+  baby        Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  type        FeedingType
+  amountOz    Float
+  startTime   DateTime
+  endTime     DateTime?
+  notes       String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([babyId, startTime])
+}
+
+enum FeedingType {
+  BOTTLE
+  BREAST_LEFT
+  BREAST_RIGHT
+  BREAST_BOTH
+  SOLID
+}
+
+model SleepLog {
+  id          String   @id @default(uuid())
+  babyId      String
+  baby        Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  startTime   DateTime
+  endTime     DateTime?
+  quality     SleepQuality?
+  location    String?
+  notes       String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([babyId, startTime])
+}
+
+enum SleepQuality {
+  POOR
+  FAIR
+  GOOD
+  EXCELLENT
+}
+
+model MealLog {
+  id          String   @id @default(uuid())
+  babyId      String
+  baby        Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  mealType    MealType
+  foodItems   String[]
+  amountEaten String?
+  timestamp   DateTime
+  notes       String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([babyId, timestamp])
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+model IllnessLog {
+  id          String   @id @default(uuid())
+  babyId      String
+  baby        Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  illnessName String
+  symptoms    String[]
+  severity    Severity
+  startDate   DateTime
+  endDate     DateTime?
+  notes       String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([babyId, startDate])
+}
+
+enum Severity {
+  MILD
+  MODERATE
+  SEVERE
+}
+
+model MedicationLog {
+  id           String   @id @default(uuid())
+  babyId       String
+  baby         Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  
+  medicationName String
+  dosage       String
+  frequency    String
+  startDate    DateTime
+  endDate      DateTime?
+  prescribedBy String?
+  notes        String?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@index([babyId, startDate])
+}
+
+model MoodLog {
+  id          String   @id @default(uuid())
+  babyId      String
+  baby        Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  mood        Mood
+  intensity   Int      // 1-10
+  triggers    String[]
+  timestamp   DateTime
+  notes       String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([babyId, timestamp])
+}
+
+enum Mood {
+  HAPPY
+  CALM
+  FUSSY
+  CRYING
+  IRRITABLE
+  PLAYFUL
+  SLEEPY
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  babyId      String
+  baby        Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
+  
+  type        NotificationType
+  title       String
+  message     String
+  isRead      Boolean  @default(false)
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([userId, isRead])
+  @@index([babyId])
+}
+
+enum NotificationType {
+  SLEEP_GOAL_NOT_MET
+  FEEDING_GOAL_NOT_MET
+  MEDICATION_REMINDER
+  SHARE_EXPIRING
+  GENERAL
+}
