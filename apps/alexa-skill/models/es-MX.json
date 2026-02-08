@@ -1,0 +1,60 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "bebio",
+      "intents": [
+        {
+          "name": "LinkBabyIntent",
+          "slots": [
+            {
+              "name": "code",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "vincular con código {code}",
+            "vincula con código {code}",
+            "usar código {code}",
+            "mi código es {code}"
+          ]
+        },
+        {
+          "name": "AddFeedingIntent",
+          "slots": [
+            {
+              "name": "ounces",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "agrega una toma de {ounces} onzas",
+            "registrar {ounces} onzas",
+            "toma de {ounces} onzas"
+          ]
+        },
+        {
+          "name": "GetSummaryIntent",
+          "samples": [
+            "resumen de hoy",
+            "cómo va hoy",
+            "cuánto lleva hoy"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}
+

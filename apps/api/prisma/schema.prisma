@@ -23,6 +23,11 @@ enum EventType {
   MOOD
 }
 
+enum NotificationType {
+  DAILY_OZ_MISSED
+  DAILY_SLEEP_MISSED
+}
+
 model User {
   id           String       @id @default(cuid())
   email        String       @unique
@@ -50,6 +55,7 @@ model Baby {
   events      Event[]
   goal        Goal?
   alexaLinks  AlexaLink[]
+  notifications NotificationLog[]
 }
 
 model Membership {
@@ -147,5 +153,18 @@ model AlexaLink {
 
   baby         Baby     @relation(fields: [babyId], references: [id], onDelete: Cascade)
 
+  @@index([babyId])
+}
+
+model NotificationLog {
+  id        String           @id @default(cuid())
+  babyId    String
+  type      NotificationType
+  day       DateTime
+  sentAt    DateTime         @default(now())
+
+  baby      Baby             @relation(fields: [babyId], references: [id], onDelete: Cascade)
+
+  @@unique([babyId, type, day])
   @@index([babyId])
 }

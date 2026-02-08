@@ -12,6 +12,7 @@ import { DEFAULT_FAMILY_SCOPES, DEFAULT_NANNY_SCOPES, DEFAULT_PARENT_SCOPES, SCO
 import { nanoid } from "nanoid";
 import bcrypt from "bcryptjs";
 import { EventType, MembershipRole } from "@prisma/client";
+import { startNotificationScheduler } from "./notifications.js";
 
 const env = getEnv();
 
@@ -98,10 +99,37 @@ app.post("/auth/login", async (request) => {
 app.get("/babies", { preHandler: app.authenticate }, async (request) => {
   const userId = getUserIdFromRequest(request);
   const babies = await prisma.baby.findMany({
-    where: { memberships: { some: { userId, revokedAt: null } } },
+    where: {
+      memberships: {
+        some: {
+          userId,
+          revokedAt: null,
+          OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+        },
+      },
+    },
     orderBy: { createdAt: "desc" },
   });
   return { babies };
+});
+
+// ---- Push tokens (Expo) ----
+app.post("/me/push-tokens", { preHandler: app.authenticate }, async (request, reply) => {
+  const userId = getUserIdFromRequest(request);
+  const body = z
+    .object({
+      token: z.string().min(10),
+      platform: z.string().optional(),
+    })
+    .parse(request.body);
+
+  const saved = await prisma.pushToken.upsert({
+    where: { token: body.token },
+    create: { userId, token: body.token, platform: body.platform },
+    update: { userId, platform: body.platform },
+  });
+
+  return reply.status(201).send({ pushToken: saved });
 });
 
 app.post("/babies", { preHandler: app.authenticate }, async (request, reply) => {
@@ -236,6 +264,28 @@ app.delete("/babies/:babyId/members/:memberUserId", { preHandler: app.authentica
   return { member: updated };
 });
 
+app.patch("/babies/:babyId/members/:memberUserId", { preHandler: app.authenticate }, async (request) => {
+  const userId = getUserIdFromRequest(request);
+  const params = z.object({ babyId: z.string(), memberUserId: z.string() }).parse(request.params);
+  await requireMembership({ babyId: params.babyId, userId, requiredScopes: [SCOPES.MEMBERS_MANAGE] });
+
+  const body = z
+    .object({
+      scopes: z.array(z.string()).optional(),
+      expiresAt: z.string().datetime().nullable().optional(),
+    })
+    .parse(request.body);
+
+  const member = await prisma.membership.update({
+    where: { babyId_userId: { babyId: params.babyId, userId: params.memberUserId } },
+    data: {
+      scopes: body.scopes,
+      expiresAt: body.expiresAt === undefined ? undefined : body.expiresAt === null ? null : new Date(body.expiresAt),
+    },
+  });
+  return { member };
+});
+
 // ---- Events ----
 app.get("/babies/:babyId/events", { preHandler: app.authenticate }, async (request) => {
   const userId = getUserIdFromRequest(request);
@@ -361,7 +411,6 @@ app.post("/alexa/feeding", async (request) => {
   const event = await prisma.event.create({
     data: {
       babyId: link.babyId,
-      createdById: "alexa",
       type: EventType.FEEDING,
       amountOz: body.amountOz,
       notes: "Alexa",
@@ -400,6 +449,7 @@ app.get("/alexa/summary", async (request) => {
 });
 
 async function main() {
+  startNotificationScheduler(app);
   await app.listen({ port: env.PORT, host: "0.0.0.0" });
 }
 

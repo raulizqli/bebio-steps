@@ -9,7 +9,10 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "npm run dev -w apps/api",
+    "dev": "npm run dev:api",
+    "dev:api": "npm run dev -w @bebio/api",
+    "dev:mobile": "npm run start -w @bebio/mobile",
+    "build": "npm run build -ws",
     "lint": "npm run lint -ws",
     "typecheck": "npm run typecheck -ws"
   }
