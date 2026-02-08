@@ -34,14 +34,32 @@ meeting the core requirements (iOS/Android and Alexa integration).
 ### Offline tolerance
 - Simple local queue + sync when online.
 
-## Development platforms (suggested)
+## Development platforms (primary: Firebase-first)
+
+### Primary recommendation: Firebase-first stack
+- Mobile: React Native + TypeScript (single codebase for iOS/Android).
+- Backend: Firebase Auth, Firestore (DB), Cloud Functions (API), Storage.
+- Push notifications: Firebase Cloud Messaging + APNs.
+- Analytics/Crash: Firebase Analytics + Crashlytics.
+- Alexa: ASK SDK + AWS Lambda + account linking (OAuth).
+  - Recommendation: Alexa calls Firebase Functions/Firestore via HTTPS.
+- CI/CD: GitHub Actions.
+
+**Benefits:** very fast MVP delivery; built-in offline + realtime sync; minimal ops.
+**Disadvantages:** vendor lock-in; pricing can grow with scale.
+
+Still required outside Firebase:
+- Mobile releases: App Store / Google Play builds, signing, and publishing.
+- Alexa hosting: skills are hosted on AWS (Lambda or Alexa-hosted).
+
+### Alternative stack (if you avoid Firebase)
 - Mobile: React Native + TypeScript (single codebase for iOS/Android).
   - Benefits: faster delivery with shared code; large ecosystem.
   - Disadvantages: native module work for edge cases; perf tuning for heavy UI.
 - Backend API: Node.js (Express or NestJS) + PostgreSQL.
   - Benefits: rapid iteration; strong community; good JSON support.
   - Disadvantages: single-threaded runtime; needs care for CPU-heavy tasks.
-- Auth: Firebase Auth or Auth0.
+- Auth: Auth0.
   - Benefits: quick setup; secure flows; social logins if needed.
   - Disadvantages: vendor lock-in; pricing can grow with scale.
 - Push notifications: Firebase Cloud Messaging + APNs.
@@ -53,17 +71,6 @@ meeting the core requirements (iOS/Android and Alexa integration).
 - CI/CD: GitHub Actions.
   - Benefits: native to repo; flexible workflows.
   - Disadvantages: parallel builds can increase cost; mobile signing setup.
-
-### Firebase-first option (MVP-friendly)
-Firebase can cover most backend needs, but not everything.
-- Use Firebase for: Auth, Firestore (DB), Cloud Functions (API), Storage,
-  Analytics, Crashlytics, and Push (FCM/APNs).
-  - Benefits: very fast MVP delivery; built-in offline and realtime sync.
-  - Disadvantages: vendor lock-in; pricing can grow with scale.
-- Still required outside Firebase:
-  - Mobile releases: App Store / Google Play builds, signing, and publishing.
-  - Alexa hosting: Alexa skills are hosted on AWS (Lambda or Alexa-hosted).
-  - Recommendation: Alexa calls Firebase Functions/Firestore via HTTPS.
 
 ## 2) MVP User Stories (minimum)
 1. As a parent, I can log a feeding with amount and time.
